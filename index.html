@@ -1,91 +1,170 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.4">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <!-- 홈 화면 앱 설정 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="FlightPrep">
+    
+    <title>Flight Prep Checklist</title>
+    
+    <style>
+        :root {
+            --bg-color: #1c1c1e;
+            --card-bg: #2c2c2e;
+            --text-color: #ffffff;
+            --accent-color: #0a84ff;
+            --border-color: #38383a;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            -webkit-user-select: none;
+        }
+
+        header {
+            padding: 60px 20px 20px;
+            background: rgba(44, 44, 46, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            text-align: center;
+            border-bottom: 0.5px solid var(--border-color);
+        }
+
+        h1 { margin: 0; font-size: 20px; letter-spacing: 1px; color: var(--accent-color); }
+
+        #list { padding: 10px 15px; }
+
+        .check-item {
+            background: var(--card-bg);
+            margin-bottom: 10px;
+            padding: 18px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            font-size: 17px;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .check-item:active { transform: scale(0.98); opacity: 0.7; }
+
+        .check-item.checked {
+            opacity: 0.5;
+            background: #1c1c1e;
+            border: 1px solid var(--border-color);
+        }
+
+        .check-item.checked .text {
+            text-decoration: line-through;
+            color: #8e8e93;
+        }
+
+        .checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checked .checkbox {
+            background: var(--accent-color);
+        }
+
+        .checked .checkbox::after {
+            content: '✓';
+            color: white;
+            font-size: 14px;
+        }
+
+        .reset-btn {
+            display: block;
+            width: calc(100% - 40px);
+            margin: 20px auto;
+            padding: 15px;
+            background: #ff453a;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="ko"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"&gt;</p>
-<p class="p1">&lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;</p>
-<p class="p1">&lt;meta name="apple-mobile-web-app-status-bar-style" content="black"&gt;</p>
-<p class="p1">&lt;meta name="apple-mobile-web-app-title" content="FlightPrep"&gt;</p>
-<p class="p1">&lt;title&gt;Flight Prep&lt;/title&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;style&gt;</p>
-<p class="p1">body {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>margin:0;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-family:-apple-system;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:#0f0f1a;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:white;</p>
-<p class="p1">}</p>
-<p class="p1">button { font-size:18px; padding:12px; }</p>
-<p class="p1">.check { padding:16px; border-bottom:1px solid #333; }</p>
-<p class="p1">.checked { text-decoration:line-through; color:#888; }</p>
-<p class="p1">&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1">&lt;h2 style="text-align:center"&gt;FLIGHT PREP&lt;/h2&gt;</p>
-<p class="p1">&lt;div id="list"&gt;&lt;/div&gt;</p>
-<p class="p1">&lt;button onclick="resetAll()"&gt;RESET&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;script&gt;</p>
-<p class="p1">const DEFAULT_ITEMS = [</p>
-<p class="p1"><span class="Apple-converted-space">  </span>"A-OPCS 확인",</p>
-<p class="p1"><span class="Apple-converted-space">  </span>"Weather 확인",</p>
-<p class="p1"><span class="Apple-converted-space">  </span>"NOTAM 확인",</p>
-<p class="p1"><span class="Apple-converted-space">  </span>"Route Review",</p>
-<p class="p1"><span class="Apple-converted-space">  </span>"필수 지참물"</p>
-<p class="p1">];</p>
-<p class="p2"><br></p>
-<p class="p1">if (!localStorage.getItem('init')) {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>localStorage.setItem('items', JSON.stringify(DEFAULT_ITEMS));</p>
-<p class="p1"><span class="Apple-converted-space">  </span>localStorage.setItem('checked', JSON.stringify({}));</p>
-<p class="p1"><span class="Apple-converted-space">  </span>localStorage.setItem('init','1');</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">let items = JSON.parse(localStorage.getItem('items'));</p>
-<p class="p1">let checked = JSON.parse(localStorage.getItem('checked'));</p>
-<p class="p2"><br></p>
-<p class="p1">function render(){</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const el = document.getElementById('list');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>el.innerHTML='';</p>
-<p class="p1"><span class="Apple-converted-space">  </span>items.forEach((t,i)=&gt;{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const d = document.createElement('div');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>d.className='check'+(checked[i]?' checked':'');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>d.innerText=t;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>d.onclick=()=&gt;toggle(i);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>el.appendChild(d);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>});</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function toggle(i){</p>
-<p class="p1"><span class="Apple-converted-space">  </span>checked[i]=!checked[i];</p>
-<p class="p1"><span class="Apple-converted-space">  </span>localStorage.setItem('checked',JSON.stringify(checked));</p>
-<p class="p1"><span class="Apple-converted-space">  </span>render();</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if(navigator.vibrate) navigator.vibrate(50);</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function resetAll(){</p>
-<p class="p1"><span class="Apple-converted-space">  </span>checked={};</p>
-<p class="p1"><span class="Apple-converted-space">  </span>localStorage.setItem('checked',JSON.stringify(checked));</p>
-<p class="p1"><span class="Apple-converted-space">  </span>render();</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">render();</p>
-<p class="p1">&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+<header>
+    <h1>FLIGHT PREP</h1>
+</header>
+
+<div id="list"></div>
+
+<button class="reset-btn" onclick="resetAll()">RESET ALL</button>
+
+<script>
+    const DEFAULT_ITEMS = [
+        "A-OPCS 확인",
+        "Weather 확인",
+        "NOTAM 확인",
+        "Route Review",
+        "필수 지참물 (라이센스/로그북)",
+        "Fuel Planning",
+        "Aircraft Document"
+    ];
+
+    let items = JSON.parse(localStorage.getItem('items')) || DEFAULT_ITEMS;
+    let checked = JSON.parse(localStorage.getItem('checked')) || {};
+
+    function render() {
+        const listEl = document.getElementById('list');
+        listEl.innerHTML = '';
+        
+        items.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = `check-item ${checked[index] ? 'checked' : ''}`;
+            div.innerHTML = `
+                <div class="checkbox"></div>
+                <div class="text">${item}</div>
+            `;
+            div.onclick = () => toggle(index);
+            listEl.appendChild(div);
+        });
+    }
+
+    function toggle(index) {
+        checked[index] = !checked[index];
+        localStorage.setItem('checked', JSON.stringify(checked));
+        
+        // 아이폰 햅틱 진동
+        if (navigator.vibrate) navigator.vibrate(40);
+        
+        render();
+    }
+
+    function resetAll() {
+        if(confirm("모든 항목을 초기화할까요?")) {
+            checked = {};
+            localStorage.setItem('checked', JSON.stringify(checked));
+            render();
+        }
+    }
+
+    render();
+</script>
+
 </body>
 </html>
